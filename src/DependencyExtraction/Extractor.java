@@ -19,37 +19,35 @@ public class Extractor {
 		return extractor;
 	}
 
-	/**
-	 * type: a integer value that determine language type.
-	 * 0: C/C++ files
-	 * */
 	public Graph Code2graph(String fileDir){
 		Graph G = new Graph();
 		File dir = new File(fileDir);
 		handleDir(G,dir);
 		return G;
 	}
-	private void handleDir(Graph G,File f){
+	public void handleDir(Graph G,File f){
 		if (f.isDirectory()){
 			for (File file:f.listFiles()){
 				handleDir(G,file);
 			}
 		}else {
 			List<String> dependedFiles = getCInclude(f);
+
 			for (String s:dependedFiles){
 				G.addEdge(f.getName(),s);
 			}
 		}
 	}
-	private List<String> getCInclude(File file){
+	public List<String> getCInclude(File file){
 		List<String> Includes = new ArrayList<>();
 		String regex = "^#include ";
 		Pattern pattern = Pattern.compile(regex);
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line = br.readLine();
 			while (line!=null){
-				if (pattern.matcher(line).matches()){
+				if (pattern.matcher(line).lookingAt()){
 					String dependName = line.substring(9);
 					if (dependName.charAt(0)=='<'){
 
@@ -57,7 +55,7 @@ public class Extractor {
 						Includes.add(dependName);
 					}
 				}
-				br.readLine();
+				line = br.readLine();
 			}
 		}catch (IOException e){
 
