@@ -22,58 +22,51 @@ public class Benchmarking {
 
     public static void compareData(File file1, File file2) throws FileNotFoundException {
 
-        HashSet<String> Set1 = new HashSet<>();
-        HashSet<String> Set2 = new HashSet<>();
+        HashSet<String> set1 = new HashSet<>();
+        HashSet<String> set2 = new HashSet<>();
 
-        Scanner scanner1 = new Scanner(file1);
-        Scanner scanner2 = new Scanner(file2);
+        Scanner scan1 = new Scanner(file1);
+        Scanner scan2 = new Scanner(file2);
 
-        while(scanner1.hasNextLine()) {
-            String line = scanner1.nextLine();
-            Set1.add(line);
+        while (scan1.hasNextLine()) {
+            set1.add(scan1.nextLine());
         }
-        scanner1.close();
+        scan1.close();
 
-        while(scanner2.hasNextLine()) {
-            String line = scanner2.nextLine();
-            Set2.add(line);
+        while (scan2.hasNextLine()) {
+            set2.add(scan2.nextLine());
         }
-        scanner2.close();
+        scan2.close();
+
+        log.println("--Extracted depenendcies--");
+        log.println(file1.getName()+": "+set1.size());
+        log.println(file2.getName()+": "+set2.size());
 
 
-        System.out.println(file1.getName() + " Dependancies extracted ... " + Set1.size());
-        System.out.println(file2.getName() + " Dependancies extracted ... " + Set2.size());
+        log.println("--Dependency breakdown--");
+        HashSet<String> set1_unique = new HashSet<>(set1);
+        HashSet<String> set2_unique = new HashSet<>(set2);
+        HashSet<String> common = new HashSet<>(set1);
 
-        log.println("--------------");
+        //Unique
+        set1_unique.removeAll(set2);
+        set2_unique.removeAll(set1);
 
+        //Common
+        common.retainAll(set2);
 
-        HashSet<String> setdiff1;
+        log.println(file1.getName()+": "+set1_unique.size());
+        log.println(file2.getName()+": "+set2_unique.size());
+        log.println("Common: "+common.size());
 
-        setdiff1 = new HashSet<>(Set1);
-        setdiff1.removeAll(Set2);
+        log.println("--Recall/Precision stats--");
 
-        System.out.println(file1.getName() + " Unique Dependancies " + setdiff1.size());
+        //Precision
+        double set1_precision = (set1.size()/(double)(set1_unique.size()+set2_unique.size()+ common.size()));
+        double set2_precision = (set2.size()/(double)(set1_unique.size()+set2_unique.size()+ common.size()));
 
-        HashSet<String> setdiff2 = new HashSet<>(Set2);
-        setdiff2.removeAll(Set1);
-
-        System.out.println(file2.getName() + " Unique Dependancies " + setdiff2.size());
-        HashSet<String> common = new HashSet<>(Set2);
-        common.retainAll(Set2);
-
-        log.println("--------------");
-
-
-        System.out.println("Common Dependancies " + common.size());
-
-        double precision1 = ((Set1.size() / (double)(Set1.size() + Set2.size() - common.size())));
-
-        System.out.println("Precision " + file1.getName() + " : " + precision1);
-
-        double precision2 = ((Set2.size() / (double)(Set1.size() + Set2.size() - common.size())));
-
-        System.out.println("Precision " + file2.getName() + " : " + precision2);
-
+        log.format("%s: %.2f%%\n", file1.getName(), set1_precision*100);
+        log.format("%s: %.2f%%\n", file2.getName(), set2_precision*100);
 
 
 
