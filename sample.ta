@@ -392,7 +392,29 @@ cLinks gcc-12.2.0/gcc/config/glibc-c.cc c-family/c-target-def.h
 cLinks gcc-12.2.0/libstdc++-v3/libsupc++/bad-cast.cc typeinfo
 cLinks gcc-12.2.0/libgfortran/generated/cshift1_8_r8.c libgfortran.h
 cLinks gcc-12.2.0/libgfortran/generated/cshift1_8_r8.c string.h
-
+cLinks gcc-12.2.0/gcc/d/types.cc config.h
+cLinks gcc-12.2.0/gcc/d/types.cc system.h
+cLinks gcc-12.2.0/gcc/d/types.cc coretypes.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/attrib.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/aggregate.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/enum.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/expression.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/identifier.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/mtype.h
+cLinks gcc-12.2.0/gcc/d/types.cc dmd/target.h
+cLinks gcc-12.2.0/gcc/d/types.cc tree.h
+cLinks gcc-12.2.0/gcc/d/types.cc fold-const.h
+cLinks gcc-12.2.0/gcc/d/types.cc diagnostic.h
+cLinks gcc-12.2.0/gcc/d/types.cc langhooks.h
+cLinks gcc-12.2.0/gcc/d/types.cc tm.h
+cLinks gcc-12.2.0/gcc/d/types.cc function.h
+cLinks gcc-12.2.0/gcc/d/types.cc toplev.h
+cLinks gcc-12.2.0/gcc/d/types.cc target.h
+cLinks gcc-12.2.0/gcc/d/types.cc stringpool.h
+cLinks gcc-12.2.0/gcc/d/types.cc stor-layout.h
+cLinks gcc-12.2.0/gcc/d/types.cc attribs.h
+cLinks gcc-12.2.0/gcc/d/types.cc d-tree.h
+cLinks gcc-12.2.0/gcc/d/types.cc d-target.h
 
 
 
