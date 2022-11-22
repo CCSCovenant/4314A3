@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class main {
 	public static void main(String[] args){
 		Extractor ext = Extractor.getInstance();
-		Graph g = ext.Code2graph("./gcc-12.2.0");
+		Graph g = ext.Code2graph("./gcc-12.2.0/");
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("include.raw.ta"));
 			out.write(Graph2TAConverter.getInstance().Graph2TA(g));
