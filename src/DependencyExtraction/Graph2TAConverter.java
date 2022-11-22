@@ -18,7 +18,7 @@ public class Graph2TAConverter {
 		for (String file:G.Nodes.keySet()){
 			Node N = G.Nodes.get(file);
 			for (Node C:N.children){
-				s.append("cLinks "+N.fileName+" "+C.fileName);
+				s.append("cLinks "+N.fileName+" "+C.fileName+"\n");
 			}
 		}
 		return s.toString();
