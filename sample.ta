@@ -184,11 +184,11 @@ cLinks gcc-12.2.0/libcody/client.cc internal.hh
 cLinks gcc-12.2.0/libcody/client.cc cerrno
 cLinks gcc-12.2.0/libcody/client.cc cstdlib
 cLinks gcc-12.2.0/libcody/client.cc cstring
-cLinks gcc-12.2.0/libcc1/callbacks.cc	cc1plugin-config.h
-cLinks gcc-12.2.0/libcc1/callbacks.cc	string.h
-cLinks gcc-12.2.0/libcc1/callbacks.cc	stdlib.h
-cLinks gcc-12.2.0/libcc1/callbacks.cc	callbacks.hh
-cLinks gcc-12.2.0/libcc1/callbacks.cc	libiberty.h
+cLinks gcc-12.2.0/libcc1/callbacks.cc cc1plugin-config.h
+cLinks gcc-12.2.0/libcc1/callbacks.cc string.h
+cLinks gcc-12.2.0/libcc1/callbacks.cc stdlib.h
+cLinks gcc-12.2.0/libcc1/callbacks.cc callbacks.hh
+cLinks gcc-12.2.0/libcc1/callbacks.cc libiberty.h
 cLinks gcc-12.2.0/libcc1/connection.cc cc1plugin-config.h
 cLinks gcc-12.2.0/libcc1/connection.cc string
 cLinks gcc-12.2.0/libcc1/connection.cc unistd.h
