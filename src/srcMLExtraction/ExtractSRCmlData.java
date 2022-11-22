@@ -11,7 +11,7 @@ public class ExtractSRCmlData {
     public static void main(String[] args) {
 
         ArrayList<String> list = createClinks("scrML.raw.xml");
-        writeToFile(list, "test.ta"); //First line is weird
+        writeToFile(list, "srcML.ta"); //First line is weird
 
 
     }
@@ -26,12 +26,9 @@ public class ExtractSRCmlData {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             StringBuilder xmlStringBuilder = new StringBuilder();
-            xmlStringBuilder.append("<?xml version=1.0?> <class> </class>");
             Document doc = builder.parse(inputFile);
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("unit");
-
-
 
 
             for (int i = 0; i < nList.getLength(); i++) {
@@ -41,16 +38,12 @@ public class ExtractSRCmlData {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-
-                    for (int k = 0 ; k < eElement.getElementsByTagName("cpp:include").getLength(); k++) {
-                        if (eElement.getElementsByTagName("cpp:file").item(0) != null) {
-                            String file_name = eElement.getAttribute("filename");
-                            String dependency_name = cleanString(eElement.getElementsByTagName("cpp:file").item(k).getTextContent()) ;
-                            String template = "cLinks "+file_name+" "+ dependency_name;
-                            list.add(template);
-                        }
+                    if (eElement.getElementsByTagName("cpp:file").item(0) != null) {
+                        String file_name = eElement.getAttribute("filename");
+                        String dependency_name = cleanString(eElement.getElementsByTagName("cpp:file").item(0).getTextContent()) ;
+                        String template = "cLinks "+file_name+" "+ dependency_name;
+                        list.add(template);
                     }
-
 
                 }
             }
