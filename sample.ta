@@ -389,12 +389,6 @@ cLinks gcc-12.2.0/gcc/config/glibc-c.cc system.h
 cLinks gcc-12.2.0/gcc/config/glibc-c.cc coretypes.h
 cLinks gcc-12.2.0/gcc/config/glibc-c.cc c-family/c-target.h
 cLinks gcc-12.2.0/gcc/config/glibc-c.cc c-family/c-target-def.h
-cLinks gcc-12.2.0/gcc/libbacktrace/alloc.c config.h
-cLinks gcc-12.2.0/gcc/libbacktrace/alloc.c errno.h
-cLinks gcc-12.2.0/gcc/libbacktrace/alloc.c stdlib.h
-cLinks gcc-12.2.0/gcc/libbacktrace/alloc.c sys/types.h
-cLinks gcc-12.2.0/gcc/libbacktrace/alloc.c backtrace.h
-cLinks gcc-12.2.0/gcc/libbacktrace/alloc.c internal.h
 cLinks gcc-12.2.0/libstdc++-v3/libsupc++/bad-cast.cc typeinfo
 cLinks gcc-12.2.0/libgfortran/generated/cshift1_8_r8.c libgfortran.h
 cLinks gcc-12.2.0/libgfortran/generated/cshift1_8_r8.c string.h
