@@ -415,6 +415,108 @@ cLinks gcc-12.2.0/gcc/d/types.cc stor-layout.h
 cLinks gcc-12.2.0/gcc/d/types.cc attribs.h
 cLinks gcc-12.2.0/gcc/d/types.cc d-tree.h
 cLinks gcc-12.2.0/gcc/d/types.cc d-target.h
+cLinks gcc-12.2.0/gcc/c/c-aux-info.cc config.h
+cLinks gcc-12.2.0/gcc/c/c-aux-info.cc system.h
+cLinks gcc-12.2.0/gcc/c/c-aux-info.cc coretypes.h
+cLinks gcc-12.2.0/gcc/c/c-aux-info.cc c-tree.h
+cLinks gcc-12.2.0/gcc/c/c-aux-info.cc tm.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc config.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc system.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc coretypes.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc target.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc function.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc c-tree.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc timevar.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc stringpool.h
+cLinks gcc-12.2.0/gcc/c/c-parser.cc cgraph.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc config.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc system.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc coretypes.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc target.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc function.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc c-tree.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc timevar.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc stringpool.h
+cLinks gcc-12.2.0/gcc/c/gimple.parser.cc cgraph.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc config.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc system.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc coretypes.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc target.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc function.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc tree.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc memmodel.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc c-common.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc gimple-expr.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc tm_p.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc stringpool.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc cgraph.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc diagnostic.h
+cLinks gcc-12.2.0/gcc/c-family/c-common.cc calls.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc config.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc system.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc coretypes.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc tm.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc function.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc basic-block.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc tree.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc tree-iterator.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc predict.h
+cLinks gcc-12.2.0/gcc/c-family/c-gimplify.cc gimple.h
+cLinks gcc-12.2.0/gcc/fortran/arith.cc system.h
+cLinks gcc-12.2.0/gcc/fortran/arith.cc config.h
+cLinks gcc-12.2.0/gcc/fortran/arith.cc coretypes.h
+cLinks gcc-12.2.0/gcc/fortran/arith.cc gfortran.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc config.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc system.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc coretypes.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc tree.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc options.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc cgraph.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc timevar.h
+cLinks gcc-12.2.0/gcc/analyzer/analysis-plan.cc ipa-utils.h
+cLinks gcc-12.2.0/gcc/ada/affinity.c taskLib.h
+cLinks gcc-12.2.0/gcc/ada/affinity.c cpuset.h
+cLinks gcc-12.2.0/fixincludes/fixfixes.c fixlib.h
+cLinks gcc-12.2.0/fixincludes/fixfixes.c fixincl.x
+cLinks gcc-12.2.0/libatomic/cas_n.c libatomic_i.h
+cLinks gcc-12.2.0/zlib/crc32.c stdio.h
+cLinks gcc-12.2.0/zlib/crc32.c zutil.h
+cLinks gcc-12.2.0/libdecnumber/decPacked.c string.h
+cLinks gcc-12.2.0/libdecnumber/decPacked.c decNumber.h
+cLinks gcc-12.2.0/libdecnumber/decPacked.c decPacked.h
+cLinks gcc-12.2.0/libdecnumber/decPacked.c decNumberLocal.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc stdlib.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc stdio.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc string.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc execinfo.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc unistd.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc vtv_utils.h
+cLinks gcc-12.2.0/libvtv/vtv_fail.cc vtv_fail.h
+cLinks gcc-12.2.0/libitm/beginend.cc libitm_i.h
+cLinks gcc-12.2.0/libitm/beginend.cc pthread.h
+cLinks gcc-12.2.0/libitm/retry.cc stdlib.h
+cLinks gcc-12.2.0/libitm/retry.cc string.h
+cLinks gcc-12.2.0/libitm/retry.cc libitm_i.h
+cLinks gcc-12.2.0/libitm/retry.cc ctype.h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
