@@ -64,12 +64,15 @@ public class Extractor {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line = br.readLine();
 			while (line!=null){
-				if (line.startsWith("#include")){
-					line = line.replace("#include","");
-					line = line.trim();
+				if (line.contains("#") && line.contains("include")){
+					line = line.replaceAll(" ", "");
+					line = line.replace("#","");
+					line = line.replace("include","");
 					line = line.replace("<","");
 					line = line.replace(">","");
 					line = line.replace("\"","");
+					line = line.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","");
+					line = line.trim();
 					Includes.add(line);
 				}
 				line = br.readLine();
