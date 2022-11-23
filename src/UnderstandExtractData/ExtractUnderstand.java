@@ -26,8 +26,9 @@ public class ExtractUnderstand {
             //cLink file_path other_path
             String[] split = line.split(" ");
             String[] other_file = split[2].split("/");
+            String[] this_file = split[1].split("/");
 
-            String curr = "cLinks " + split[1] +" " +other_file[other_file.length-1];
+            String curr = "cLinks " + this_file[this_file.length-1]+" " +other_file[other_file.length-1];
             list.add(curr);
 
         }

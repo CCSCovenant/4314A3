@@ -10,7 +10,7 @@ public class ExtractSRCmlData {
 
     public static void main(String[] args) {
 
-        ArrayList<String> list = createClinks("scrML.raw.xml");
+        ArrayList<String> list = createClinks("srcML.raw.xml");
         writeToFile(list, "srcML.ta"); //First line is weird
 
 
@@ -38,11 +38,27 @@ public class ExtractSRCmlData {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
+
                     if (eElement.getElementsByTagName("cpp:file").item(0) != null) {
-                        String file_name = eElement.getAttribute("filename");
+                        String[] temp = eElement.getAttribute("filename").split("/");
+                        String file_name = temp[temp.length-1];
+
                         String dependency_name = cleanString(eElement.getElementsByTagName("cpp:file").item(0).getTextContent()) ;
                         String template = "cLinks "+file_name+" "+ dependency_name;
                         list.add(template);
+                    } else {
+                        String[] temp = eElement.getAttribute("filename").split("/");
+                        String file_name = temp[temp.length-1];
+
+                        String dependency_name = eElement.getElementsByTagName("cpp:include").item(0).getTextContent();
+                        dependency_name = dependency_name.replace(" ","");
+                        dependency_name = dependency_name.replace("#", "");
+                        dependency_name = dependency_name.replace("include", "");
+                        String template = "cLinks "+file_name+" "+ dependency_name;
+
+                        if (file_name.length() != 0) {
+                            list.add(template);
+                        }
                     }
 
                 }

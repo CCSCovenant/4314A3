@@ -12,10 +12,12 @@ public class Benchmarking {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        File file1 = new File("srcML.ta");
-        File file2 = new File("understand.ta");
+        File file1 = new File("understand.ta");
+        File file2 = new File("include.ta");
+        File file3 = new File("srcML.ta");
+        File file4 = new File("sample.ta");
 
-        compareData(file1,file2);
+        compareData(file2,file3);
 
 
     }
@@ -29,12 +31,12 @@ public class Benchmarking {
         Scanner scan2 = new Scanner(file2);
 
         while (scan1.hasNextLine()) {
-            set1.add(scan1.nextLine());
+            set1.add(scan1.nextLine().trim());
         }
         scan1.close();
 
         while (scan2.hasNextLine()) {
-            set2.add(scan2.nextLine());
+            set2.add(scan2.nextLine().trim());
         }
         scan2.close();
 
@@ -43,14 +45,20 @@ public class Benchmarking {
         log.println(file2.getName()+": "+set2.size());
 
 
-        log.println("--Dependency breakdown--");
+        log.println("--Unique Dependency breakdown--");
         HashSet<String> set1_unique = new HashSet<>(set1);
         HashSet<String> set2_unique = new HashSet<>(set2);
         HashSet<String> common = new HashSet<>(set1);
 
+//        log.println(set1_unique);
+//        log.println(set2.contains("cLinks libcp1.cc names.hh"));
+//        log.println(set1.contains("cLinks libcp1.cc names.hh"));
+
         //Unique
         set1_unique.removeAll(set2);
         set2_unique.removeAll(set1);
+
+        log.println(set1_unique);
 
         //Common
         common.retainAll(set2);
@@ -59,18 +67,17 @@ public class Benchmarking {
         log.println(file2.getName()+": "+set2_unique.size());
         log.println("Common: "+common.size());
 
-        log.println("--Recall/Precision stats--");
+        log.println("--Precision stats--");
 
         //Precision
-        double set1_precision = (set1.size()/(double)(set1_unique.size()+set2_unique.size()+ common.size()));
-        double set2_precision = (set2.size()/(double)(set1_unique.size()+set2_unique.size()+ common.size()));
+        double set1_precision = (common.size()/(double)(set2_unique.size()+ common.size()));
+//        double set2_precision = (set2.size()/(double)(set1_unique.size()+set2_unique.size()+ common.size()));
 
         log.format("%s: %.2f%%\n", file1.getName(), set1_precision*100);
-        log.format("%s: %.2f%%\n", file2.getName(), set2_precision*100);
-
-
-
+//        log.format("%s: %.2f%%\n", file2.getName(), set2_precision*100);
     }
+
+
 
 
 }
