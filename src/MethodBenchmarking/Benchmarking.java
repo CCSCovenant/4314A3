@@ -24,7 +24,7 @@ public class Benchmarking {
         HashSet<String> SetR = getSample(file4,RAW);
         HashSet<String> SetU = getSample(file1,RAW);
         HashSet<String> SetI = getSample(file2,RAW);
-        HashSet<String> SetS = getSample(file3,RAW);
+        HashSet<String> SetS =  getSample(file3,RAW);
         PR(SetR,SetU);
         PR(SetR,SetI);
         PR(SetR,SetS);
