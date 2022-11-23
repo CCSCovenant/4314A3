@@ -3,7 +3,9 @@ package MethodBenchmarking;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 public class Benchmarking {
@@ -17,11 +19,52 @@ public class Benchmarking {
         File file3 = new File("srcML.ta");
         File file4 = new File("sample.ta");
 
-        compareData(file2,file3);
+        //compareData(file2,file3);
+        HashSet<String> RAW = preprocessRaw(file4);
+        HashSet<String> SetR = getSample(file4,RAW);
+        HashSet<String> SetU = getSample(file1,RAW);
+        HashSet<String> SetI = getSample(file2,RAW);
+        HashSet<String> SetS = getSample(file3,RAW);
+        PR(SetR,SetU);
+        PR(SetR,SetI);
+        PR(SetR,SetS);
 
 
     }
+    public static void PR(HashSet<String> GT,HashSet<String> OB){
+        HashSet<String> set1_unique = new HashSet<>(GT);
+        HashSet<String> set2_unique = new HashSet<>(OB);
+        HashSet<String> common = new HashSet<>(GT);
 
+        set1_unique.removeAll(OB);
+        set2_unique.removeAll(GT);
+        common.retainAll(OB);
+
+        double precision = (common.size()/(double)(OB.size()));
+        double recall = (common.size()/(double)(GT.size()));
+        System.out.println("PR: "+precision+" "+recall);
+    }
+    public static HashSet<String> getSample(File file,HashSet<String> rawSet) throws FileNotFoundException{
+        Scanner scanner = new Scanner(file);
+        HashSet<String> set = new HashSet<>();
+        while (scanner.hasNextLine()){
+            String line = scanner.nextLine().trim();
+            String name = line.split("\\s+")[1];
+            if (rawSet.contains(name)){
+                set.add(line);
+            }
+        }
+        return set;
+    }
+    public static HashSet<String>  preprocessRaw(File file) throws FileNotFoundException{
+        Scanner scanner = new Scanner(file);
+        HashSet<String> set = new HashSet<>();
+        while (scanner.hasNextLine()){
+            String   line = scanner.nextLine().trim();
+            set.add(line.split("\\s+")[1]);
+        }
+        return set;
+    }
     public static void compareData(File file1, File file2) throws FileNotFoundException {
 
         HashSet<String> set1 = new HashSet<>();
