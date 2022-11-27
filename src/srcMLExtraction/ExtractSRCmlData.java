@@ -6,85 +6,74 @@ import java.io.*;
 import java.util.*;
 
 public class ExtractSRCmlData {
-    static HashMap<Integer,HashMap<String, HashSet<String>>> globalTable = new HashMap();
-    static HashMap<Integer, HashMap<String, HashSet<String>>> callTable = new HashMap<>();
-    static HashMap<String,HashSet<String>> includeMap = new HashMap<>();
-    static HashMap<String,HashSet<String>> linkMap = new HashMap<>();
+
+    HashMap<String, String> functionDeclMap = new HashMap();
+    // key: function, value: file that decl this function
+    HashMap<String, String> varDeclMap = new HashMap();
+    // key: var, value: file that decl this var
+
+
+    HashMap<String, HashSet<String>> externFunctionMap = new HashMap();
+    // key: file, value: all extern function that decl in this file
+
+    HashMap<String, HashSet<String>> externVarMap = new HashMap();
+    // key: file, value: all extern var that decl in this file
+
+
+
+    HashMap<String, HashSet<String>> functionCallMap = new HashMap<>();
+    HashMap<String,HashSet<String>> includeMap = new HashMap<>();
+
+    HashMap<String,HashSet<String>> linkMap = new HashMap<>();
     // HashMap<String,String> globalTable = new HashMap();
 
     public static PrintStream log = System.out;
 
-    public static void main(String[] args) {
-
-        getCInclude("srcML_query_result.xml");
-        parseDeclaration("srcML_query_decl_result.xml");
-        parseCalls("srcML_query_call_result.xml");
-        Extraction();
-        System.out.println("Finished");
-
-
+    static ExtractSRCmlData extractSRCmlData = new ExtractSRCmlData();
+    public static ExtractSRCmlData getInstance() {
+        return extractSRCmlData;
     }
-    public static void Extraction(){
-        for (Integer argNum:callTable.keySet()){
-            HashMap<String, HashSet<String>> callMap_arg = callTable.get(argNum);
-            for (String file:callMap_arg.keySet()){
-                HashSet<String> functionSet = callMap_arg.get(file);
-                for (String function:functionSet){
-                    HashMap<String, HashSet<String>> globalMap_arg = globalTable.get(argNum);
-                    if (globalMap_arg==null){
-                        continue;
-                    }
-                    HashSet<String> not_possible_files = new HashSet<>();
-                    HashSet<String> possible_files = new HashSet<>();
-                    HashSet<String> possible_from_functionMap = globalMap_arg.get(function);
-                    HashSet<String> possible_from_include = includeMap.get(file);
-                    if (possible_from_functionMap==null||possible_from_include==null){
-                        continue;
-                    }
-                    not_possible_files.addAll(possible_from_functionMap);
-                    possible_files.addAll(possible_from_functionMap);
+    public  void CountLink(){
+        long count = 0;
+        for (String s:linkMap.keySet()){
+            HashSet<String> link = linkMap.get(s);
+            count += link.size();
+        }
+        System.out.println(count);
+    }
+    public  void CountInclude(){
+        long count = 0;
+        for (String s:includeMap.keySet()){
+            HashSet<String> link = includeMap.get(s);
+            count += link.size();
+        }
+        System.out.println(count);
+    }
 
-                    not_possible_files.removeAll(possible_from_include);
-                    possible_files.removeAll(not_possible_files);
-                    if (possible_files.size()==0){
-                        continue;
-                    }
-                    if (linkMap.get(file)==null){
-                        linkMap.put(file,new HashSet<>());
-                    }
-
-                    for (String s:possible_files){
-                        linkMap.get(file).add(s);
-                    }
-
-                }
+    public void addFunctionDecl(boolean isExtern,String file,String function){
+        if (isExtern){
+            if (externFunctionMap.get(file)==null){
+                externFunctionMap.put(file,new HashSet<>());
             }
+            externFunctionMap.get(file).add(function);
+        }else {
+            functionDeclMap.put(function,file);
         }
     }
 
-    public static void addFunctionCall(String filename, String functionName, int arg) {
-        if (callTable.get(arg) == null) {
-            callTable.put(arg, new HashMap<String, HashSet<String>>());
+    public void addVarDecl(boolean isExtern,String file,String var){
+        if (isExtern){
+            if (externVarMap.get(file)==null){
+                externVarMap.put(file,new HashSet<>());
+            }
+            externVarMap.get(file).add(var);
+        }else {
+            varDeclMap.put(var,file);
         }
-        HashMap<String, HashSet<String>> Map = callTable.get(arg);
-        if (Map.get(filename) == null) {
-            Map.put(filename, new HashSet<String>());
-        }
-        Map.get(filename).add(functionName);
     }
 
-    public static void addFunctionDeclare(String filename, String functionName, int arg) {
-        if (globalTable.get(arg) == null) {
-            globalTable.put(arg, new HashMap<String, HashSet<String>>());
-        }
-        HashMap<String, HashSet<String>> Map = globalTable.get(arg);
-        if (Map.get(functionName) == null) {
-            Map.put(functionName, new HashSet<String>());
-        }
-        Map.get(functionName).add(filename);
-    }
-
-    public static void parseCalls(String path) {
+/*
+    public  void parseCalls(String path) {
 
         try {
             File inputFile = new File(path);
@@ -138,8 +127,8 @@ public class ExtractSRCmlData {
         }
 
     }
-
-    public static void parseDeclaration(String path) {
+*/
+    public void parseFunctionDeclaration(String path) {
 
         try {
             File inputFile = new File(path);
@@ -159,27 +148,52 @@ public class ExtractSRCmlData {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     Element decl = (Element) eElement.getElementsByTagName("function_decl").item(0);
+                    if (decl==null){
+                        continue;
+                    }
                     if (decl.getAttribute("type").equals("operator")) {
                         continue;
                     }
                     int args = decl.getElementsByTagName("argument").getLength();
                     String file_name = eElement.getAttribute("filename");
-
+                    String function_name = "";
+                    String typename = "";
                     NodeList nl = decl.getElementsByTagName("name");
+                    NodeList specifier = decl.getElementsByTagName("specifier");
 
-//                    int argumentSize = decl.getElementsByTagName("parameter_list").getLength();
-//                    System.out.println(argumentSize);
-//
                     for (int j = 0; j < nl.getLength(); j++) {
                         Node curr = nl.item(j);
                         Element el = (Element) curr.getParentNode();
 
                         if (el.getTagName().equals("function_decl")) {
-
-                            addFunctionDeclare(file_name,curr.getTextContent(),args);
+                            function_name = curr.getTextContent();
+                        }
+                        if (el.getTagName().equals("type")){
+                            typename = curr.getTextContent();
                         }
 
                     }
+                    boolean STATIC = false;
+                    boolean externDecl = false;
+                    for (int j =0;j<specifier.getLength();j++){
+                        Node curr = specifier.item(j);
+                        if (curr.getTextContent().equals("extern")){
+                            externDecl = true;
+                        }
+                        if (curr.getTextContent().equals("static")){
+                            STATIC = true;
+                        }
+                    }
+                    if (STATIC){
+                        continue;
+                    }
+                    String entity_name = typename+" "+function_name+" "+args;
+                    addFunctionDecl(externDecl,file_name,entity_name);
+
+//                    int argumentSize = decl.getElementsByTagName("parameter_list").getLength();
+//                    System.out.println(argumentSize);
+//
+
 
                 }
             }
@@ -190,7 +204,73 @@ public class ExtractSRCmlData {
 
     }
 
-    public static void getCInclude(String path) {
+    public  void parseVarDeclaration(String path) {
+
+        try {
+            File inputFile = new File(path);
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            StringBuilder xmlStringBuilder = new StringBuilder();
+            xmlStringBuilder.append("<?xml version=1.0?> <class> </class>");
+            Document doc = builder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("unit");
+
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    Element decl = (Element) eElement.getElementsByTagName("decl").item(0);
+
+                    String file_name = eElement.getAttribute("filename");
+                    String varname = "";
+                    String typename = "";
+                    NodeList nl = decl.getElementsByTagName("name");
+                    NodeList specifier = decl.getElementsByTagName("specifier");
+
+                    for (int j = 0; j < nl.getLength(); j++) {
+                        Node curr = nl.item(j);
+                        Element el = (Element) curr.getParentNode();
+
+                        if (el.getTagName().equals("function_decl")) {
+                            varname = curr.getTextContent();
+                        }
+                        if (el.getTagName().equals("type")){
+                            typename = curr.getTextContent();
+                        }
+
+                    }
+                    boolean externDecl = false;
+                    boolean STATIC = false;
+
+                    for (int j =0;j<specifier.getLength();j++){
+                        Node curr = specifier.item(j);
+                        if (curr.getTextContent().equals("extern")){
+                            externDecl = true;
+                        }
+                        if (curr.getTextContent().equals("static")){
+                            STATIC = true;
+                        }
+                    }
+                    if (STATIC){
+                        continue;
+                    }
+                    String entity_name = typename+" "+varname;
+                    addVarDecl(externDecl,file_name,entity_name);
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void parseInclude(String path) {
         try {
             File inputFile = new File(path);
 
@@ -255,7 +335,7 @@ public class ExtractSRCmlData {
 
     }
 
-    public static void writeToFile(ArrayList<String> list, String path) {
+    public void writeToFile(ArrayList<String> list, String path) {
         try {
             FileWriter myWriter = new FileWriter(path);
 
@@ -270,7 +350,7 @@ public class ExtractSRCmlData {
         }
     }
 
-    public static String cleanString(String dependency_name) {
+    public String cleanString(String dependency_name) {
         String result = dependency_name;
         result = result.replaceAll("\"", "");
         result = result.replaceAll("<", "");
