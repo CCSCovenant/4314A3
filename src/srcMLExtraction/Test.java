@@ -10,7 +10,6 @@ public class Test {
 		extractor.ExtractionFunction();
 		extractor.ExtractionVar();
 		extractor.ExtractionInclude();
-		extractor.CountLink();
 		System.out.println("finish");
 
 	}

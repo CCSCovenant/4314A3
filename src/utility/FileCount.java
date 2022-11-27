@@ -31,7 +31,7 @@ public class FileCount {
 
 			int randomIndex = rand.nextInt(list.size());
 			String item = list.get(randomIndex);
-			if (item.contains("testsuite")){
+			if (item.contains("testsuite")||item.endsWith(".h")||item.endsWith(".hpp")){
 			}else {
 				newList.add(item);
 				list.remove(randomIndex);
