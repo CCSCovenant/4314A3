@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0">
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="1"><call><name>defined</name> <argument_list>(<argument><expr><name>IN_GCC</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="2"><call><name>default_map</name> <argument_list>(<argument><expr><name>map</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="3"><call><name>default_translate</name> <argument_list>(<argument><expr><name>xlate</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="4"><call><name>close</name> <argument_list>(<argument><expr><name>fd_repo</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="5"><call><name><name>repo</name><operator>.</operator><name>empty</name></name> <argument_list>()</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="6"><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>r</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="7"><call><name><name>map</name><operator>.</operator><name>emplace</name></name> <argument_list>(<argument><expr><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>module</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="8"><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>module</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="9"><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="10"><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="11"><call><name>fstat</name> <argument_list>(<argument><expr><name>fd</name></expr></argument>, <argument><expr><operator>&amp;</operator><name>stat</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="12"><call><name>mmap</name> <argument_list>(<argument><expr><literal type="null">nullptr</literal></expr></argument>, <argument><expr><name><name>stat</name><operator>.</operator><name>st_size</name></name></expr></argument>, <argument><expr><name>PROT_READ</name></expr></argument>, <argument><expr><name>MAP_PRIVATE</name></expr></argument>, <argument><expr><name>fd</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="13"><call><name>munmap</name><argument_list>(<argument><expr><name>p</name></expr></argument>, <argument><expr><name>size</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="14"><call><name>Deleter</name><argument_list>{<argument><expr><operator>(</operator><name>size_t</name><operator>)</operator><name><name>stat</name><operator>.</operator><name>st_size</name></name></expr></argument>}</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="15"><call><name>xmalloc</name> <argument_list>(<argument><expr><name><name>stat</name><operator>.</operator><name>st_size</name></name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="16"><call><name>free</name><argument_list>(<argument><expr><name>p</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="17"><call><name>read</name> <argument_list>(<argument><expr><name>fd</name></expr></argument>, <argument><expr><name>buffer</name></expr></argument>, <argument><expr><name><name>stat</name><operator>.</operator><name>st_size</name></name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="18"><call><name>strlen</name> <argument_list>(<argument><expr><name>prefix</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="19"><call><name><name>std</name><operator>::</operator><name>find</name></name> <argument_list>(<argument><expr><name>begin</name></expr></argument>, <argument><expr><name>end</name></expr></argument>, <argument><expr><literal type="char">'\n'</literal></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="20"><call><name>size_t</name> <argument_list>(<argument><expr><name>space</name> <operator>-</operator> <name>pos</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="21"><call><name><name>std</name><operator>::</operator><name>equal</name></name> <argument_list>(<argument><expr><name>pos</name></expr></argument>, <argument><expr><name>space</name></expr></argument>, <argument><expr><name>prefix</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="22"><call><name>set_repo</name> <argument_list>(<argument><expr><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="23"><call><name><name>std</name><operator>::</operator><name>move</name></name> <argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="24"><call><name><name>file</name><operator>.</operator><name>empty</name></name> <argument_list>()</argument_list></call></unit>
+
+    <unit revision="1.0.0" language="C++" filename="gcc-12.2.0/c++tools/resolver.cc" item="25"><call><name>GetCMIName</name> <argument_list>(<argument><expr><name>module</name></expr></argument>)</argument_list></call></unit>
+
+</unit>

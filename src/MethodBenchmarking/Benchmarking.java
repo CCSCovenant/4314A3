@@ -25,8 +25,17 @@ public class Benchmarking {
         HashSet<String> SetU = getSample(file1,RAW);
         HashSet<String> SetI = getSample(file2,RAW);
         HashSet<String> SetS =  getSample(file3,RAW);
+        System.out.println("size"+SetR.size());
+        System.out.println("size"+SetU.size());
+        System.out.println("size"+SetI.size());
+        System.out.println("size"+SetS.size());
+
+        HashSet<String> valid = valid(SetI);
+        System.out.println("understand");
         PR(SetR,SetU);
+        System.out.println("include");
         PR(SetR,SetI);
+        System.out.println("scrMl");
         PR(SetR,SetS);
 
 
@@ -42,7 +51,10 @@ public class Benchmarking {
 
         double precision = (common.size()/(double)(OB.size()));
         double recall = (common.size()/(double)(GT.size()));
-        System.out.println("PR: "+precision+" "+recall);
+        log.format("%s: %.2f%%\n","precision",precision*100);
+        log.format("%s: %.2f%%\n","recall", recall*100);
+
+
     }
     public static HashSet<String> getSample(File file,HashSet<String> rawSet) throws FileNotFoundException{
         Scanner scanner = new Scanner(file);
@@ -60,8 +72,16 @@ public class Benchmarking {
         Scanner scanner = new Scanner(file);
         HashSet<String> set = new HashSet<>();
         while (scanner.hasNextLine()){
-            String   line = scanner.nextLine().trim();
+            String line = scanner.nextLine().trim();
             set.add(line.split("\\s+")[1]);
+        }
+        return set;
+    }
+    public static HashSet<String>  valid(HashSet<String> validfile) throws FileNotFoundException{
+
+        HashSet<String> set = new HashSet<>();
+        for (String dependence:validfile){
+            set.add(dependence.split("\\s+")[1]);
         }
         return set;
     }
