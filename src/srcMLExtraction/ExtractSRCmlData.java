@@ -51,6 +51,9 @@ public class ExtractSRCmlData {
     }
 
     public void addFunctionDecl(boolean isExtern,String file,String function){
+        if (function==null||function==""||file==null||file==""){
+            return;
+        }
         if (isExtern){
             if (externFunctionMap.get(file)==null){
                 externFunctionMap.put(file,new HashSet<>());
@@ -62,6 +65,9 @@ public class ExtractSRCmlData {
     }
 
     public void addVarDecl(boolean isExtern,String file,String var){
+        if (var==null||var==""||file==null||file==""){
+            return;
+        }
         if (isExtern){
             if (externVarMap.get(file)==null){
                 externVarMap.put(file,new HashSet<>());

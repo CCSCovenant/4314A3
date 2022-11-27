@@ -3,6 +3,8 @@ package utility;
 import DependencyExtraction.Graph;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,21 +13,31 @@ public class FileCount {
 	static ArrayList<String> fileList = new ArrayList<>();
 	public static void main(String[] args){
 		handleDir(new File("gcc-12.2.0"));
-		List<String> sampling = getRandomElement(fileList,40);
-		StringBuilder out = new StringBuilder();
-		for (String s:sampling){
-			out.append(s+"\n");
-		}
-		System.out.println(out);
-
+		ArrayList<String> sampling = getRandomElement(fileList,40);
+		writeToFile(sampling,"ground_truth/targetFiles");
 
 	}
-	public static List<String>
-	getRandomElement(List<String> list, int totalItems)
+	public static void writeToFile(ArrayList<String> set, String path) {
+		try {
+			FileWriter myWriter = new FileWriter(path);
+
+			for (String temp : set) {
+				myWriter.write(temp + "\n");
+			}
+			myWriter.close();
+			System.out.println("Successfully wrote to the file.");
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+
+	public static ArrayList<String>
+	getRandomElement(ArrayList<String> list, int totalItems)
 	{
 		Random rand = new Random();
 
-		List<String> newList = new ArrayList<>();
+		ArrayList<String> newList = new ArrayList<>();
 		int i =0;
 		while (i<totalItems){
 

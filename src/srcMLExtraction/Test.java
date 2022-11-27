@@ -16,7 +16,7 @@ public class Test {
 		ArrayList<String> links = new ArrayList<>();
 		for (String file:extractor.linkMap.keySet()){
 			for (String target:extractor.linkMap.get(file)){
-				links.add("Clink "+file+" "+target);
+				links.add("cLinks "+file+" "+target);
 			}
 		}
 		extractor.writeToFile(links,"srcML.ta");
