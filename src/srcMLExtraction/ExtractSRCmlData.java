@@ -9,6 +9,7 @@ public class ExtractSRCmlData {
     static HashMap<Integer,HashMap<String, HashSet<String>>> globalTable = new HashMap();
     static HashMap<Integer, HashMap<String, HashSet<String>>> callTable = new HashMap<>();
     static HashMap<String,HashSet<String>> includeMap = new HashMap<>();
+    static HashMap<String,HashSet<String>> linkMap = new HashMap<>();
     // HashMap<String,String> globalTable = new HashMap();
 
     public static PrintStream log = System.out;
@@ -16,11 +17,49 @@ public class ExtractSRCmlData {
     public static void main(String[] args) {
 
         getCInclude("srcML_query_result.xml");
-        //parseDeclaration("test.xml");
-        //parseCalls("calltest.xml");
-        System.out.println(callTable);
+        parseDeclaration("srcML_query_decl_result.xml");
+        parseCalls("srcML_query_call_result.xml");
+        Extraction();
+        System.out.println("Finished");
 
 
+    }
+    public static void Extraction(){
+        for (Integer argNum:callTable.keySet()){
+            HashMap<String, HashSet<String>> callMap_arg = callTable.get(argNum);
+            for (String file:callMap_arg.keySet()){
+                HashSet<String> functionSet = callMap_arg.get(file);
+                for (String function:functionSet){
+                    HashMap<String, HashSet<String>> globalMap_arg = globalTable.get(argNum);
+                    if (globalMap_arg==null){
+                        continue;
+                    }
+                    HashSet<String> not_possible_files = new HashSet<>();
+                    HashSet<String> possible_files = new HashSet<>();
+                    HashSet<String> possible_from_functionMap = globalMap_arg.get(function);
+                    HashSet<String> possible_from_include = includeMap.get(file);
+                    if (possible_from_functionMap==null||possible_from_include==null){
+                        continue;
+                    }
+                    not_possible_files.addAll(possible_from_functionMap);
+                    possible_files.addAll(possible_from_functionMap);
+
+                    not_possible_files.removeAll(possible_from_include);
+                    possible_files.removeAll(not_possible_files);
+                    if (possible_files.size()==0){
+                        continue;
+                    }
+                    if (linkMap.get(file)==null){
+                        linkMap.put(file,new HashSet<>());
+                    }
+
+                    for (String s:possible_files){
+                        linkMap.get(file).add(s);
+                    }
+
+                }
+            }
+        }
     }
 
     public static void addFunctionCall(String filename, String functionName, int arg) {
