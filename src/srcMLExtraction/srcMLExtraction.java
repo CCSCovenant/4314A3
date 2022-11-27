@@ -13,13 +13,18 @@ public class srcMLExtraction {
 		extractor.ExtractionVar();
 		extractor.ExtractionInclude();
 
-		ArrayList<String> links = new ArrayList<>();
-		for (String file:extractor.linkMap.keySet()){
-			for (String target:extractor.linkMap.get(file)){
-				links.add("cLinks "+file+" "+target);
+		ArrayList<String> TA = new ArrayList<>();
+		TA.add("FACT TUPLE :");
+		for (String file:extractor.getLinkMap().keySet()){
+			TA.add("$INSTANCE "+file+" cFile");
+
+		}
+		for (String file:extractor.getLinkMap().keySet()){
+			for (String target:extractor.getLinkMap().get(file)){
+				TA.add("cLinks "+file+" "+target);
 			}
 		}
-		extractor.writeToFile(links,"srcML.ta");
+		extractor.writeToFile(TA,"srcML.ta");
 	}
 
 }

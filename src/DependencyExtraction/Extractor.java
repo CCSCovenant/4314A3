@@ -62,8 +62,17 @@ public class Extractor {
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
+			StringBuilder txt = new StringBuilder();
 			String line = br.readLine();
 			while (line!=null){
+				txt.append(line+"\n");
+				line = br.readLine();
+			}
+			String[] removed = txt.toString().replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","").split("\n");
+
+
+			for (int i=0;i<removed.length;i++){
+				line = removed[i];
 				line = line.replaceAll(" ", "");
 				if (line.startsWith("#include")){
 					line = line.replace("#include","");
@@ -71,11 +80,9 @@ public class Extractor {
 					line = line.replace("<","");
 					line = line.replace(">","");
 					line = line.replace("\"","");
-					line = line.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","");
 					line = line.trim();
 					Includes.add(line);
 				}
-				line = br.readLine();
 			}
 		}catch (IOException e){
 

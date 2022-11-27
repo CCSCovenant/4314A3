@@ -50,6 +50,9 @@ public class ExtractSRCmlData {
         System.out.println(count);
     }
 
+    public HashMap<String,HashSet<String>> getLinkMap(){
+        return linkMap;
+    }
     public void addFunctionDecl(boolean isExtern,String file,String function){
         if (function==null||function==""||file==null||file==""){
             return;

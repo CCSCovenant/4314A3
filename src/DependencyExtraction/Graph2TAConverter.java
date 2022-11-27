@@ -11,12 +11,12 @@ public class Graph2TAConverter {
 	}
 	public String Graph2TA(Graph G){
 		StringBuilder s = new StringBuilder();
-		/**
+
 		s.append("FACT TUPLE\n");
 		for (String file:G.Nodes.keySet()){
 			s.append("$INSTANCE "+file+" cFile\n");
 		}
-		 */
+
 		for (String file:G.Nodes.keySet()){
 			Node N = G.Nodes.get(file);
 			for (Node C:N.children){

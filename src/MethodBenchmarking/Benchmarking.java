@@ -24,14 +24,11 @@ public class Benchmarking {
         HashSet<String> SetU = getSample(file1);
         HashSet<String> SetI = getSample(file2);
         HashSet<String> SetS =  getSample(file3);
-        System.out.println("size"+SetR.size());
-        System.out.println("size"+SetU.size());
-        System.out.println("size"+SetI.size());
-        System.out.println("size"+SetS.size());
+        System.out.println("size of gt sample"+SetR.size());
+        System.out.println("size of understand sample"+SetU.size());
+        System.out.println("size of include sample"+SetI.size());
+        System.out.println("size of srcML sample"+SetS.size());
 
-        HashSet<String> common = new HashSet<>(SetS);
-        common.removeAll(SetI);
-        System.out.println(common);
         HashSet<String> valid = valid(SetI);
         System.out.println("understand");
         PR(SetR,SetU);
