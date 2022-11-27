@@ -72,8 +72,15 @@ public class ExtractSRCmlData {
         }
     }
 
-/*
-    public  void parseCalls(String path) {
+
+    public void addFunctionCall(String file,String function){
+        if (functionCallMap.get(file)==null){
+            functionCallMap.put(file,new HashSet<>());
+        }
+        functionCallMap.get(file).add(function);
+
+    }
+    public void parseCalls(String path) {
 
         try {
             File inputFile = new File(path);
@@ -113,7 +120,7 @@ public class ExtractSRCmlData {
                                 temp = temp.split("[.]")[1];
                             }
 
-                            addFunctionCall(file_name, temp, args);
+                            addFunctionCall(file_name, temp);
 
                         }
 
@@ -127,7 +134,36 @@ public class ExtractSRCmlData {
         }
 
     }
-*/
+    public void ExtractionFunction(){
+        for (String file:externFunctionMap.keySet()){
+            HashSet<String> functions = externFunctionMap.get(file);
+            for (String function:functions){
+                String target = functionDeclMap.get(function);
+                if (target==null){
+                    continue;
+                }
+                if (linkMap.get(file)==null){
+                    linkMap.put(file,new HashSet<>());
+                }
+                linkMap.get(file).add(target);
+            }
+        }
+    }
+    public void ExtractionVar(){
+        for (String file:externVarMap.keySet()){
+            HashSet<String> functions = externVarMap.get(file);
+            for (String function:functions){
+                String target = varDeclMap.get(function);
+                if (target==null){
+                    continue;
+                }
+                if (linkMap.get(file)==null){
+                    linkMap.put(file,new HashSet<>());
+                }
+                linkMap.get(file).add(target);
+            }
+        }
+    }
     public void parseFunctionDeclaration(String path) {
 
         try {
@@ -188,7 +224,7 @@ public class ExtractSRCmlData {
                         continue;
                     }
                     String entity_name = typename+" "+function_name+" "+args;
-                    addFunctionDecl(externDecl,file_name,entity_name);
+                    addFunctionDecl(externDecl,file_name,function_name);
 
 //                    int argumentSize = decl.getElementsByTagName("parameter_list").getLength();
 //                    System.out.println(argumentSize);
@@ -259,7 +295,7 @@ public class ExtractSRCmlData {
                         continue;
                     }
                     String entity_name = typename+" "+varname;
-                    addVarDecl(externDecl,file_name,entity_name);
+                    addVarDecl(externDecl,file_name,varname);
 
                 }
             }
