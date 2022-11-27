@@ -3,39 +3,23 @@ package srcMLExtraction;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class ExtractSRCmlData {
     static HashMap<Integer,HashMap<String, HashSet<String>>> globalTable = new HashMap();
     static HashMap<Integer, HashMap<String, HashSet<String>>> callTable = new HashMap<>();
-
+    static HashMap<String,HashSet<String>> includeMap = new HashMap<>();
     // HashMap<String,String> globalTable = new HashMap();
 
     public static PrintStream log = System.out;
 
     public static void main(String[] args) {
 
-        // ArrayList<String> list =
-        // createClinks("C:\\Users\\Hamza\\Desktop\\querytest.xml");
-
-        // writeToFile(parseMacro("srcML_macro_query_result.xml"), "test_macro.ta");
-        // //First line is weird
-
-        // parseDeclaration("srcML_declaration.xml");
-        parseCalls("calltest.xml");
-
+        getCInclude("srcML_query_result.xml");
+        //parseDeclaration("test.xml");
+        //parseCalls("calltest.xml");
         System.out.println(callTable);
 
-        // System.out.println(globalTable);
-//    	for(String key : globalTable.keySet()) {
-//    		System.out.println(key);
-//    		System.out.print("----> " + globalTable.get(key));
-//
-//
-//    	}
 
     }
 
@@ -139,6 +123,7 @@ public class ExtractSRCmlData {
                     if (decl.getAttribute("type").equals("operator")) {
                         continue;
                     }
+                    int args = decl.getElementsByTagName("argument").getLength();
                     String file_name = eElement.getAttribute("filename");
 
                     NodeList nl = decl.getElementsByTagName("name");
@@ -152,7 +137,7 @@ public class ExtractSRCmlData {
 
                         if (el.getTagName().equals("function_decl")) {
 
-                          //TODO fix add
+                            addFunctionDeclare(file_name,curr.getTextContent(),args);
                         }
 
                     }
@@ -166,9 +151,7 @@ public class ExtractSRCmlData {
 
     }
 
-    public static ArrayList<String> createClinks(String path) {
-        ArrayList<String> list = new ArrayList<>();
-
+    public static void getCInclude(String path) {
         try {
             File inputFile = new File(path);
 
@@ -176,35 +159,61 @@ public class ExtractSRCmlData {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             StringBuilder xmlStringBuilder = new StringBuilder();
-            xmlStringBuilder.append("<?xml version=1.0?> <class> </class>");
             Document doc = builder.parse(inputFile);
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("unit");
 
+
             for (int i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
+
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    for (int k = 0; k < eElement.getElementsByTagName("cpp:include").getLength(); k++) {
-                        if (eElement.getElementsByTagName("cpp:file").item(0) != null) {
-                            String file_name = eElement.getAttribute("filename");
-                            String dependency_name = cleanString(
-                                    eElement.getElementsByTagName("cpp:file").item(k).getTextContent());
-                            String template = "cLinks " + file_name + " " + dependency_name;
-                            list.add(template);
+
+                    if (eElement.getElementsByTagName("cpp:file").item(0) != null) {
+                        if (eElement.getAttribute("filename").length()!=0) {
+                            String dependency_name = eElement.getElementsByTagName("cpp:file").item(0).getTextContent();
+                            if (dependency_name.contains("\"")){
+                                dependency_name = cleanString(dependency_name);
+                                String file_path_o = eElement.getAttribute("filename");
+                                ArrayList<String>file_path = new ArrayList<>(Arrays.asList(eElement.getAttribute("filename").split("/")));
+                                ArrayList<String>target_path = new ArrayList<>(Arrays.asList(dependency_name.split("/")));
+
+                                file_path.remove(file_path.size()-1);
+
+                                for (int c = 0;c<target_path.size();c++){
+                                    if (target_path.get(c).equals("..")){
+                                        file_path.remove(file_path.size()-1);
+                                    }else {
+                                        file_path.add(target_path.get(c));
+                                    }
+                                }
+                                StringBuilder target_path_o  = new StringBuilder();
+                                for (String s:file_path){
+                                    target_path_o.append(s+"/");
+                                }
+                                target_path_o.deleteCharAt(target_path_o.length()-1);
+                                if (includeMap.get(file_path_o)==null){
+                                    includeMap.put(file_path_o,new HashSet<>());
+                                }
+                                includeMap.get(file_path_o).add(target_path_o.toString());
+                            }
                         }
+
+                    } else {
+
                     }
 
                 }
             }
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return list;
     }
 
     public static void writeToFile(ArrayList<String> list, String path) {

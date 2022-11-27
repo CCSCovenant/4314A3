@@ -1,0 +1,22 @@
+-------
+
+Include
+File -> File
+
+Declare
+Function -> File
+
+call
+
+File -> Function
+
+
+for each  file in call:
+    for each function in File.functions:
+        Files = Declare.get(function)
+        headers = Include.get(file)
+        for includedFiles in headers:
+            if Files.cotain(includedFiles):
+                Clink file, includedFiles
+
+
