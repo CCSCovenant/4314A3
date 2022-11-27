@@ -1,5 +1,7 @@
 package srcMLExtraction;
 
+import java.util.ArrayList;
+
 public class Test {
 	public static void main(String[] args){
 		ExtractSRCmlData extractor = ExtractSRCmlData.getInstance();
@@ -10,7 +12,14 @@ public class Test {
 		extractor.ExtractionFunction();
 		extractor.ExtractionVar();
 		extractor.ExtractionInclude();
-		System.out.println("finish");
 
+		ArrayList<String> links = new ArrayList<>();
+		for (String file:extractor.linkMap.keySet()){
+			for (String target:extractor.linkMap.get(file)){
+				links.add("Clink "+file+" "+target);
+			}
+		}
+		extractor.writeToFile(links,"srcML.ta");
 	}
+
 }
