@@ -16,17 +16,16 @@ replace understand.ta with your raw.ta file from understand.
 - src
 - gcc-12.2.0
 - ....
-2. install srcMl
-run following comment in the terminal
-    srcml gcc-12.2.0 --verbose -o srcml_gcc.xml 
-    srcml --xpath "//cpp:include" srcml_gcc.xml > scrML_query_result.xml
-    srcml --xpath "//src:call" srcml_gcc.xml > scrML_query_call_result.xml
-    srcml --xpath "//src:function_decl" srcml_gcc.xml > scrML_query_decl_result.xml
-    srcml --xpath "//src:decl" srcml_gcc.xml > scrML_query_var_decl_result.xml
+2. install srcMl run following comment in the terminal
+    ```srcml gcc-12.2.0 --verbose -o srcml_gcc.xml``` 
+    ```srcml --xpath "//cpp:include" srcml_gcc.xml > scrML_query_result.xml```
+    ```srcml --xpath "//src:call" srcml_gcc.xml > scrML_query_call_result.xml```
+    ```srcml --xpath "//src:function_decl" srcml_gcc.xml > scrML_query_decl_result.xml```
+    ```srcml --xpath "//src:decl" srcml_gcc.xml > scrML_query_var_decl_result.xml```
 
 save the result xmlfile in the ./
 replace line1 of output xml to 
-    <?xml version="1.0"?>
+   ```<?xml version="1.0"?>``` 
 in order to make the parser run.
 ## include 
 run ./DependencyExtraction/IncludeExtraction_srcML.java
