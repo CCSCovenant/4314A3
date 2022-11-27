@@ -20,3 +20,18 @@ for each  file in call:
                 Clink file, includedFiles
 
 
+for each file in call
+    for each function in file.functions
+        target = decl
+
+fileA
+extren f()
+fileB
+f()
+
+fileC
+include fileA
+f()
+
+fileC->fileB
+

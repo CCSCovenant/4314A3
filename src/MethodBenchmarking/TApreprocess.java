@@ -21,24 +21,12 @@ public class TApreprocess {
 		ArrayList<String> include = getSample(file2,list);
 		ArrayList<String> srcML = getSample(file3,list);
 
-		writeToFile(understand,"LocalTA/understand.local.ta");
-		writeToFile(include,"LocalTA/include.local.ta");
-		writeToFile(srcML,"LocalTA/srcML.local.ta");
 
-		ArrayList<String> diff23 = new ArrayList<>();
-		diff23.addAll(srcML);
-		diff23.removeAll(include);
-		writeToFile(diff23,"LocalTA/srcML.local.diff.ta");
 
-		ArrayList<String> diff13 = new ArrayList<>();
-		diff13.addAll(understand);
-		diff13.removeAll(srcML);
-		writeToFile(diff13,"LocalTA/understand-srcML.local.diff.ta");
-
-		ArrayList<String> diff31 = new ArrayList<>();
-		diff31.addAll(srcML);
-		diff31.removeAll(understand);
-		writeToFile(diff31,"LocalTA/srcML-understand.local.diff.ta");
+		writeToFile(understand,list,"LocalTA/understand.local.ta");
+		writeToFile(include,list,"LocalTA/include.local.ta");
+		writeToFile(srcML,list,"LocalTA/srcML.local.ta");
+		ArrayList<String> diff13 = new ArrayList<>(understand);
 
 	}
 
@@ -56,7 +44,7 @@ public class TApreprocess {
 		ArrayList<String> set = new ArrayList<>();
 		while (scanner.hasNextLine()){
 			String line = scanner.nextLine().trim();
-			if (line.split("\\s+")[0].equals("$INSTANCE")){
+			if (line.split("\\s+")[0].equals("$INSTANCE")||line.split("\\s+")[0].equals("FACT TUPLE :")){
 				continue;
 			}
 			String name = line.split("\\s+")[1];
@@ -66,10 +54,13 @@ public class TApreprocess {
 		}
 		return set;
 	}
-	public static void writeToFile(ArrayList<String> set, String path) {
+	public static void writeToFile(ArrayList<String> set, HashSet<String> instance,String path) {
 		try {
 			FileWriter myWriter = new FileWriter(path);
-
+			myWriter.write("FACT TUPLE :\n");
+			for (String temp : instance) {
+				myWriter.write("$INSTANCE "+temp + " cFile\n");
+			}
 			for (String temp : set) {
 				myWriter.write(temp + "\n");
 			}

@@ -154,6 +154,19 @@ public class ExtractSRCmlData {
                 linkMap.get(file).add(target);
             }
         }
+        for (String file:functionCallMap.keySet()){
+            HashSet<String> functions = functionCallMap.get(file);
+            for (String function:functions){
+                String target = functionDeclMap.get(function);
+                if (target==null){
+                    continue;
+                }
+                if (linkMap.get(file)==null){
+                    linkMap.put(file,new HashSet<>());
+                }
+                linkMap.get(file).add(target);
+            }
+        }
     }
     public void ExtractionVar(){
         for (String file:externVarMap.keySet()){

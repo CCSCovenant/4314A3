@@ -14,13 +14,31 @@ public class Benchmarking {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        File file1 = new File("understand.ta");
-        File file2 = new File("include.ta");
-        File file3 = new File("srcML.ta");
-        File file4 = new File("sample.ta");
+        File file1 = new File("LocalTA/understand.local.ta");
+        File file2 = new File("LocalTA/include.local.ta");
+        File file3 = new File("LocalTA/srcML.local.ta");
+        File file4 = new File("ground_truth/GT.local.ta");
 
         //compareData(file2,file3);
+        HashSet<String> SetR = getSample(file4);
+        HashSet<String> SetU = getSample(file1);
+        HashSet<String> SetI = getSample(file2);
+        HashSet<String> SetS =  getSample(file3);
+        System.out.println("size"+SetR.size());
+        System.out.println("size"+SetU.size());
+        System.out.println("size"+SetI.size());
+        System.out.println("size"+SetS.size());
 
+        HashSet<String> common = new HashSet<>(SetS);
+        common.removeAll(SetI);
+        System.out.println(common);
+        HashSet<String> valid = valid(SetI);
+        System.out.println("understand");
+        PR(SetR,SetU);
+        System.out.println("include");
+        PR(SetR,SetI);
+        System.out.println("scrMl");
+        PR(SetR,SetS);
 
 
     }
@@ -38,19 +56,18 @@ public class Benchmarking {
         log.format("%s: %.2f%%\n","precision",precision*100);
         log.format("%s: %.2f%%\n","recall", recall*100);
     }
-    public static HashSet<String> getSample(File file,HashSet<String> rawSet) throws FileNotFoundException{
+    public static HashSet<String> getSample(File file) throws FileNotFoundException{
         Scanner scanner = new Scanner(file);
         HashSet<String> set = new HashSet<>();
         while (scanner.hasNextLine()){
             String line = scanner.nextLine().trim();
-            String name = line.split("\\s+")[1];
-            if (rawSet.contains(name)){
+            String name = line.split("\\s+")[0];
+            if (name.equals("cLinks")){
                 set.add(line);
             }
         }
         return set;
     }
-
     public static HashSet<String>  valid(HashSet<String> validfile) throws FileNotFoundException{
 
         HashSet<String> set = new HashSet<>();
