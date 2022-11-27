@@ -11,7 +11,7 @@ public class FileCount {
 	static ArrayList<String> fileList = new ArrayList<>();
 	public static void main(String[] args){
 		handleDir(new File("gcc-12.2.0"));
-		List<String> sampling = getRandomElement(fileList,100);
+		List<String> sampling = getRandomElement(fileList,40);
 		StringBuilder out = new StringBuilder();
 		for (String s:sampling){
 			out.append(s+"\n");
@@ -26,13 +26,17 @@ public class FileCount {
 		Random rand = new Random();
 
 		List<String> newList = new ArrayList<>();
-		for (int i = 0; i < totalItems; i++) {
+		int i =0;
+		while (i<totalItems){
 
 			int randomIndex = rand.nextInt(list.size());
-
-			newList.add(list.get(randomIndex));
-
-			list.remove(randomIndex);
+			String item = list.get(randomIndex);
+			if (item.contains("testsuite")){
+			}else {
+				newList.add(item);
+				list.remove(randomIndex);
+				i++;
+			}
 		}
 		return newList;
 	}

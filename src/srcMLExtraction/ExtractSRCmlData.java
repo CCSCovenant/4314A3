@@ -151,12 +151,23 @@ public class ExtractSRCmlData {
     }
     public void ExtractionVar(){
         for (String file:externVarMap.keySet()){
-            HashSet<String> functions = externVarMap.get(file);
-            for (String function:functions){
-                String target = varDeclMap.get(function);
+            HashSet<String> vars = externVarMap.get(file);
+            for (String var:vars){
+                String target = varDeclMap.get(var);
                 if (target==null){
                     continue;
                 }
+                if (linkMap.get(file)==null){
+                    linkMap.put(file,new HashSet<>());
+                }
+                linkMap.get(file).add(target);
+            }
+        }
+    }
+    public void ExtractionInclude(){
+        for (String file:includeMap.keySet()){
+            HashSet<String> files = includeMap.get(file);
+            for (String target:files){
                 if (linkMap.get(file)==null){
                     linkMap.put(file,new HashSet<>());
                 }
